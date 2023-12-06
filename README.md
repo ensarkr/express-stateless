@@ -7,14 +7,23 @@ This project comprises a stateless Express backend tailored for single-page Reac
 Features parts includes all features and their explanation. Explanations going to be long because I am planning check here when I forget something.  
 
 #### CORS (Cross-Origin-Resource-Sharing)
-Express includes its own CORS functions. Which does the most of the work.
- It blocks request that came from non-specified origins. Depending on your options it sets some response headers.
-- In this project only sets 2 headers.
+CORS is a mechanism that controls cross origin requests. Its opt-in from browser. Even if you include CORS in your server its up to browser to abide the rules, that is why postman like dev tools does not affected by server CORS policies. How does CORS work? CORS work by using HTTP headers. When request made to different domain from browser, firstly browsers make preflight request to check if server allows this request domain. In the response for this preflight request, some headers are included.
+
+1. Access-Control-Allow-Credentials: true
+2. Access-Control-Allow-Headers: content-type,x-csrf-origin
+3. Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE
+4. Access-Control-Allow-Origin: -allowed origin-
+
+When preflight response arrives the browser. Browser checks if domain that fetched allowed in 4th header plus other allowed things. If its allowed it sends the real request to server, if not it does not sends the real request.  
+
+Express includes its own CORS function. Which does the most of the work.
+
+- In this project it sets multiple headers including next 2.
 > 1. Access-Control-Allow-Origin = http://localhost:5173/ (origin of frontend)
 > 2. Access-Control-Allow-Credentials = true
 - Second header is used to tell browser to allow response to be seen by javascript.
 
- While using CORS, to send cookies with the request client must set credential to true. 
+While using CORS, to send cookies with the request client must set credential to true. 
 
 #### SameSite Attribute - Cookies
 
